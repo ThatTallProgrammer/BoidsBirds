@@ -5,13 +5,6 @@ class Position {
 	}
 }
 
-class Velocity {
-	constructor(x, y) {
-		this.x = x;
-		this.y = y
-	}
-}
-
 class Bird {
 	constructor(pos, vel, id) {
 		this.pos = pos;
