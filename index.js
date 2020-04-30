@@ -1,5 +1,5 @@
 const birds = [];
-const amount = 1;
+const amount = 100;
 
 const leftBound = 10;
 const rightBound = 510;
@@ -14,8 +14,6 @@ var randInt = function(min, max) {
 }
 
 var moveBirds = function() {
-	// if(milliseconds < 0) return;
-
 	birds.forEach(bird => {
 		// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
 
@@ -52,7 +50,7 @@ for(var id = 0; id < amount; id++) {
 }
 
 birds.forEach( bird => {
-	document.getElementById('sky').innerHTML += `<p class='bird-${bird.id}'>${bird.id}</p>`;
+	document.getElementById('sky').innerHTML += `<div class='bird-${bird.id} bird'>${bird.id}</div>`;
 
 	anime({
 		targets: `.bird-${bird.id}`,
