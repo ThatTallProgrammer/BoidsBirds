@@ -1,13 +1,44 @@
 const birds = [];
 const amount = 100;
 
+const leftBound = 10;
+const rightBound = 510;
+const upperBound = 10;
+const lowerBound = 510;
+
+const timeInterval = 100 // milliseconds
+const milliseconds = 5000;
+
 var randInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+var moveBirds = function() {
+	birds.forEach(bird => {
+		// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
+
+		if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
+		if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
+
+		bird.pos.x = bird.pos.x + (timeInterval / 1000) * bird.vel.x;
+		bird.pos.y = bird.pos.y + (timeInterval / 1000) * bird.vel.y;
+
+		anime({
+			targets: `.bird-${bird.id}`,
+			translateX: bird.pos.x,
+			translateY: bird.pos.y,
+			borderRadius: 50, 
+			duration: timeInterval,
+			easing: 'linear',
+		});	
+	}); 
+
+	setTimeout(moveBirds, timeInterval);
+}
+
 for(var id = 0; id < amount; id++) {
-	let x_pos = randInt(1, 1000);
-	let y_pos = randInt(1, 1000);
+	let x_pos = randInt(leftBound, rightBound);
+	let y_pos = randInt(upperBound, lowerBound);
 	let x_vel = randInt(-100, 100);
 	let y_vel = randInt(-100, 100);
 	
@@ -16,33 +47,19 @@ for(var id = 0; id < amount; id++) {
 		new Velocity(x_vel, y_vel),
 		id
 	));
-
-	
 }
 
 birds.forEach( bird => {
-	document.getElementById('sky').innerHTML += `<p class='bird-${bird.id}'>${bird.id}</p>`;
+	document.getElementById('sky').innerHTML += `<div class='bird-${bird.id} bird'>${bird.id}</div>`;
 
 	anime({
 		targets: `.bird-${bird.id}`,
-		translateX: bird.pos.x,
-		translateY: bird.pos.y,
+		translateX: [0, bird.pos.x],
+		translateY: [0, bird.pos.y],
 		borderRadius: 50, 
 		duration: 0,
 		easing: 'linear', 
 	});
-
-	// console.log(`Velocity - X: ${bird.vel.x} Y: ${bird.vel.y}`);
 });
 
-t = 5;
-birds.forEach(bird => {
-	anime({
-		targets: `.bird-${bird.id}`,
-		translateX: bird.pos.x + t * bird.vel.x,
-		translateY: bird.pos.y + t * bird.vel.y,
-		borderRadius: 50, 
-		duration: 1000 * t,
-		easing: 'linear',
-	});	
-}); 
+moveBirds();
