@@ -4,3 +4,11 @@
 	left: 10px;
 	z-index: auto;
 }
+
+.dot {
+	height: 5px;
+	width: 5px;
+	background-color: blueviolet;
+	border-radius: 50%;
+	display: inline-block;
+}
