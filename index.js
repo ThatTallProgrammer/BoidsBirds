@@ -9,29 +9,34 @@ const lowerBound = 510;
 const timeInterval = 100 // milliseconds
 const milliseconds = 5000;
 
+var windowHasFocus = true; 
+
 var randInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 var moveBirds = function() {
-	birds.forEach(bird => {
-		// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
 
-		if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
-		if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
+	if(windowHasFocus){
+		birds.forEach(bird => {
+			// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
 
-		bird.pos.x = bird.pos.x + (timeInterval / 1000) * bird.vel.x;
-		bird.pos.y = bird.pos.y + (timeInterval / 1000) * bird.vel.y;
+			if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
+			if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
 
-		anime({
-			targets: `.bird-${bird.id}`,
-			translateX: bird.pos.x,
-			translateY: bird.pos.y,
-			borderRadius: 50, 
-			duration: timeInterval,
-			easing: 'linear',
-		});	
-	}); 
+			bird.pos.x = bird.pos.x + (timeInterval / 1000) * bird.vel.x;
+			bird.pos.y = bird.pos.y + (timeInterval / 1000) * bird.vel.y;
+
+			anime({
+				targets: `.bird-${bird.id}`,
+				translateX: bird.pos.x,
+				translateY: bird.pos.y,
+				borderRadius: 50, 
+				duration: timeInterval,
+				easing: 'linear',
+			});	
+		}); 
+	}	
 
 	setTimeout(moveBirds, timeInterval);
 }
@@ -61,5 +66,12 @@ birds.forEach( bird => {
 		easing: 'linear', 
 	});
 });
+
+window.onblur = function() {
+	windowHasFocus = false;
+}
+window.onfocus = function() {
+	windowHasFocus = true;
+}
 
 moveBirds();
