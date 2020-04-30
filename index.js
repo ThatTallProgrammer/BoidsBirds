@@ -7,13 +7,21 @@ const upperBound = 10;
 const lowerBound = 510;
 
 const timeInterval = 100 // milliseconds
+const milliseconds = 5000;
 
 var randInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 var moveBirds = function() {
+	// if(milliseconds < 0) return;
+
 	birds.forEach(bird => {
+		// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
+
+		if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
+		if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
+
 		bird.pos.x = bird.pos.x + (timeInterval / 1000) * bird.vel.x;
 		bird.pos.y = bird.pos.y + (timeInterval / 1000) * bird.vel.y;
 
@@ -54,8 +62,6 @@ birds.forEach( bird => {
 		duration: 0,
 		easing: 'linear', 
 	});
-
-	// console.log(`Position - X: ${bird.pos.x} Y: ${bird.pos.y}`);
 });
 
 moveBirds();
