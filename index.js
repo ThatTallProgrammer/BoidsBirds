@@ -50,7 +50,7 @@ for(var id = 0; id < amount; id++) {
 }
 
 birds.forEach( bird => {
-	document.getElementById('sky').innerHTML += `<div class='bird-${bird.id} bird'>${bird.id}</div>`;
+	document.getElementById('sky').innerHTML += `<div class='bird-${bird.id} bird dot'></div>`;
 
 	anime({
 		targets: `.bird-${bird.id}`,
