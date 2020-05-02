@@ -1,12 +1,12 @@
 const birds = [];
-const amount = 100;
+const amount = 2;
 
 const leftBound = 10;
 const rightBound = 510;
 const upperBound = 10;
 const lowerBound = 510;
 
-const timeInterval = 100 // milliseconds
+const timeInterval = 1000 // milliseconds
 const milliseconds = 5000;
 
 var windowHasFocus = true; 
@@ -24,8 +24,8 @@ var moveBirds = function() {
 			if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
 			if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
 
-			bird.pos.x = bird.pos.x + (timeInterval / 1000) * bird.vel.x;
-			bird.pos.y = bird.pos.y + (timeInterval / 1000) * bird.vel.y;
+			bird.pos.x += (timeInterval / 1000) * bird.vel.x;
+			bird.pos.y += (timeInterval / 1000) * bird.vel.y;
 
 			anime({
 				targets: `.bird-${bird.id}`,
@@ -37,6 +37,7 @@ var moveBirds = function() {
 			});	
 		}); 
 	}	
+
 
 	setTimeout(moveBirds, timeInterval);
 }
