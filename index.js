@@ -7,7 +7,6 @@ const upperBound = 10;
 const lowerBound = 510;
 
 const timeInterval = 1000 // milliseconds
-const milliseconds = 5000;
 
 var windowHasFocus = true; 
 
@@ -42,6 +41,15 @@ var updatePopCenter = function() {
 		popCenter.y -= distanceInfo.derivativeOfY * distanceInfo.distance;
 		distanceInfo = getAvgDistanceInfo(); 
 	}
+
+	anime({
+		targets: `.pop-center`,
+		translateX: popCenter.x,
+		translateY: popCenter.y,
+		borderRadius: 50, 
+		duration: 10,
+		easing: 'linear',
+	});	
 }
 
 var randInt = function(min, max) {
@@ -55,9 +63,10 @@ var moveBirds = function() {
 		updatePopCenter();
 
 		birds.forEach(bird => {
+			bird.changeDirectionTo(popCenter);
 
-			if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
-			if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
+			// if(bird.pos.x < leftBound || bird.pos.x > rightBound) bird.vel.invertX();
+			// if(bird.pos.y < upperBound || bird.pos.y > lowerBound) bird.vel.invertY();
 
 			bird.pos.x += (timeInterval / 1000) * bird.vel.x;
 			bird.pos.y += (timeInterval / 1000) * bird.vel.y;
@@ -84,7 +93,7 @@ for(var id = 0; id < population; id++) {
 	
 	birds.push(new Bird(
 		new Position(x_pos, y_pos),
-		new Velocity(x_vel, y_vel),
+		new Vector(x_vel, y_vel),
 		id
 	));
 }

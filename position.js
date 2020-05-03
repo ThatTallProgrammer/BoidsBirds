@@ -22,4 +22,8 @@ class Position {
 			'distance': distance 
 		};
 	}
+
+	getDistanceVector(p) {
+		return new Vector(p.x - this.x, p.y - this.y);
+	}
 }
