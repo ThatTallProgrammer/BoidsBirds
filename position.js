@@ -11,14 +11,15 @@ class Position {
 		);
 	}
 
-	distanceDerivative(p) {
+	getDistanceInfo(p) {
 		const distance = this.distanceTo(p);
 		const d_x = (this.x - p.x) / distance;
 		const d_y = (this.y - p.y) / distance;
 
 		return {
 			'derivativeOfX': d_x,
-			'derivativeOfY': d_y  
+			'derivativeOfY': d_y,
+			'distance': distance 
 		};
 	}
 }
