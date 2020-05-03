@@ -11,6 +11,11 @@ const milliseconds = 5000;
 
 var windowHasFocus = true; 
 
+var popCenter = Position(
+	(rightBound + leftBound) / 2,
+	(lowerBound + upperBound) / 2
+)
+
 var randInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
